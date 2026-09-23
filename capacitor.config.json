@@ -1,8 +1,0 @@
-{
-  "appId": "com.voice2textai.app",
-  "appName": "Voice2Text AI",
-  "webDir": "www",
-  "server": {
-    "androidScheme": "https"
-  }
-}
