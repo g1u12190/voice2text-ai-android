@@ -107,8 +107,10 @@ async function improveText(){
 
         console.error(error);
 
-        status.innerHTML =
-        "❌ Error al mejorar el texto.";
+        //status.innerHTML =
+        //"❌ Error al mejorar el texto.";
+        // TEMPORAL: mostrar el error real durante la depuración
+        status.innerHTML = "❌ " + error.message;
 
     }
 
