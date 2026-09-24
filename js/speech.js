@@ -294,7 +294,7 @@ async function startNativeRecognition(startNewNativeSession = false){
         // Mantiene la sesión viva entre pausas y permite que
         // una pausa natural no corte inmediatamente el segmento.
         continuousPTT: true,
-        allowForSilence: 2500,
+        allowForSilence: 4500,
         muteRecognizerBeep: true
 
     });
