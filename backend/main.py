@@ -1,74 +1,48 @@
-from fastapi import FastAPI
-from fastapi import HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from dotenv import load_dotenv
-
 from google import genai
 
 import os
-
-# ==========================================
-# Cargar variables de entorno
-# ==========================================
 
 load_dotenv()
 
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not API_KEY:
-    raise Exception("No existe GEMINI_API_KEY en el archivo .env")
+    raise Exception("No existe GEMINI_API_KEY en las variables de entorno")
 
 client = genai.Client(api_key=API_KEY)
 
-# ==========================================
-# Crear aplicación
-# ==========================================
-
 app = FastAPI(
-    title="Voice2Text AI",
+    title="Voice2Text AI Android",
     version="1.0"
 )
-
-# ==========================================
-# Permitir peticiones desde Live Server
-# ==========================================
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://g1u12190.github.io",
-        "https://localhost",
-        "http://localhost"
-    ],  
+        "https://localhost"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ==========================================
-# Modelo recibido desde JavaScript
-# ==========================================
 
 class TextRequest(BaseModel):
     text: str
 
-# ==========================================
-# Ruta de prueba
-# ==========================================
 
 @app.get("/")
 def root():
-
     return {
         "status": "ok",
-        "message": "Voice2Text AI Backend funcionando"
+        "message": "Voice2Text AI Android Backend funcionando"
     }
 
-# ==========================================
-# Mejorar texto con Gemini
-# ==========================================
 
 @app.post("/improve")
 def improve(request: TextRequest):
@@ -81,7 +55,6 @@ def improve(request: TextRequest):
     )
 
     try:
-
         response = client.models.generate_content(
             model="gemini-3.5-flash-lite",
             contents=prompt
